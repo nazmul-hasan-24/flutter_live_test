@@ -11,58 +11,76 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: "Second live test",
+      title: " Counter App",
       theme: ThemeData.light( useMaterial3: true),
-      home: const HomePage(),
+      home:  const HomePage(),
     );
   }
 }
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+    int count = 0;
+
+void _showDialog(){
+    showDialog(
+      context: context,
+       builder: (context){
+        return AlertDialog(
+          title:  Text("Button pressed $count times"),
+         
+          actions: [
+            TextButton(onPressed: (){
+              Navigator.pop(context);
+            }, child: const Text("Close"))
+          ],
+        );
+       });
+  }
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar( title: const Text("My shopping List"),
-      centerTitle: true,
-      elevation: 8,
-      backgroundColor: Colors.purple,),
-      body: const SingleChildScrollView(
-        padding: EdgeInsets.all(12.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+      appBar: AppBar(title: const Text("Counter App"),
+      backgroundColor: Colors.blue,),
+      body:  Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+        const Text("Count:",
+        style: TextStyle(fontSize: 20),),
+        Text("$count",
+        style: const TextStyle(fontSize: 20),),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ListTile(
-            leading: Icon(Icons.shopping_basket,),
-            title: Text("Apple",
-            style: TextStyle(fontSize: 16),),
-            ),
-            ListTile(
-            leading: Icon(Icons.shopping_basket,),
-            title: Text("Banan",
-            style: TextStyle(fontSize: 16),),
-            ),
-            ListTile(
-            leading: Icon(Icons.shopping_basket,),
-            title: Text("Milk",
-            style: TextStyle(fontSize: 16),),
-            ),
-            ListTile(
-            leading: Icon(Icons.shopping_basket,),
-            title: Text("Eggs",
-            style: TextStyle(fontSize: 16),),
-            ),
-            ListTile(
-            leading: Icon(Icons.shopping_basket,),
-            title: Text("Orange",
-            style: TextStyle(fontSize: 16),),
-            ),
+           ElevatedButton(onPressed: (){
+            if(count>=5){
+              _showDialog();
+            }
+            setState(() {
+              count=count++;
+            });
+           }, child: const Icon(Icons.add)),
+           const SizedBox(width: 20.0,),
+           ElevatedButton(onPressed: (){
+           if(count>=5){
+              _showDialog();
+            }
+            setState(() {
+              count=count--;
+            });
+           }, 
+           child: const Icon(Icons.minimize))
           ],
-        ),
-      ),
+        )
+      ]),
     );
-
   }
 }
-//https://github.com/nazmul-hasan-24/live_test_6
