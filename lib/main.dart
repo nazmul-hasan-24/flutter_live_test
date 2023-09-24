@@ -65,7 +65,7 @@ void _showDialog(){
               _showDialog();
             }
             setState(() {
-              count=count++;
+              count=count+1;
             });
            }, child: const Icon(Icons.add)),
            const SizedBox(width: 20.0,),
@@ -74,7 +74,7 @@ void _showDialog(){
               _showDialog();
             }
             setState(() {
-              count=count--;
+              count=count-1;
             });
            }, 
            child: const Icon(Icons.minimize))
